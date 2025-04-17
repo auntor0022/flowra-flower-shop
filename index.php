@@ -115,7 +115,7 @@
                     </ul>
                 </div>
                 <div class="navbar-end">
-                    <a href="login.html" class="btn bg-[#FF8F52] text-white text-xl">Login</a>
+                    <a href="login.php" class="btn bg-[#FF8F52] text-white text-xl">Login</a>
                 </div>
             </div>
         </nav>
@@ -129,7 +129,7 @@
                 <p class="mt-9 font-normal text-[#838383] text-xl">Browse between hounders of flowers</p>
                 <button class="btn bg-[#FF8F52] text-white text-lg font-normal mt-11">Discorver More <i class="fa-solid fa-arrow-right"></i></button>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3  items-center gap-3  md:gap-5">
+            <div class="grid grid-cols-2 md:grid-cols-3 place-items-center  items-center gap-3  md:gap-5">
                 <img src="images/banner-1.png" alt="">
                 <img src="images/banner-2.png" alt="">
                 <img src="images/banner-3.png" alt="">
@@ -317,7 +317,7 @@
                     <div>
                         <h3 class="font-medium text-2xl mt-4 mb-3">Atena</h3>
                         <p class="font-normal text-xl text-[#838383] mb-4">Drip too hard, don't stand too close
-                            You gon' fuck around and drown off this wave
+                            You gon' fuck around and drown off this wave.
                             </p>
                         <div class="rating mb-7">
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />

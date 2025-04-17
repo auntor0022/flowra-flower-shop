@@ -1,3 +1,13 @@
+
+<?php
+@include 'config.php';
+
+$email = $password = "";
+$emailErr = $passwordErr = "";
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 
@@ -81,16 +91,16 @@
     <main class="">
         <!-- login -->
         <div class="container mx-auto flex flex-col-reverse md:flex-row py-24 justify-center items-center md:items-start">
-            <div class="bg-white md:p-12">
+            <form method="post" class="bg-white md:p-12">
                 <h1 class="font-normal text-4xl mb-3">Login</h1>
                 <h3 class="font-normal text-xl text-[#838383] mb-16">Login and have more fun</h3>
-                <input type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]">
+                <input name="email" type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]">
                 <br>
-                <input type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[95px] focus:outline-[#FF8F52]">
+                <input name="password" type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[95px] focus:outline-[#FF8F52]">
                 <br>
-                <input type="submit" value="Login" class="mb-16 w-[390px] h-[63px] bg-[#FF8F52] rounded-lg font-normal text-xl text-white cursor-pointer">
-                <p class="font-normal text-xl text-[#838383] text-center">dont have an account? <span class="text-[#FF8F52]"><a href="signUp.html" class="cursor-pointer">Register</a></span></p>
-            </div>
+                <input name="submit" type="submit" value="Login" class="mb-16 w-[390px] h-[63px] bg-[#FF8F52] rounded-lg font-normal text-xl text-white cursor-pointer">
+                <p class="font-normal text-xl text-[#838383] text-center">dont have an account? <span class="text-[#FF8F52]"><a href="signUp.php" class="cursor-pointer">Register</a></span></p>
+    </form>
             <div class="hidden md:block">
                 <img src="images/logIn.png" alt="" class="">
             </div>

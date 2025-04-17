@@ -1,3 +1,67 @@
+
+<?php
+@include 'config.php';
+
+$username = $email = $password = $confirmPass = "";
+$usernameErr = $emailErr = $passwordErr = $confirmPassErr = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['submit'])) {
+
+        // Username validation
+        if (empty($_POST['username'])) {
+            $usernameErr = "Username cannot be empty";
+        } else {
+            $username = $_POST['username'];
+        }
+
+        // Email validation
+        if (empty($_POST['email'])) {
+            $emailErr = "You must provide your email";
+        } else {
+            $email = $_POST['email'];
+        }
+
+        // Password validation
+        if (empty($_POST['password'])) {
+            $passwordErr = "Password cannot be empty";
+        } else {
+            $password = $_POST['password'];
+            if (strlen($password) < 8) {
+                $passwordErr = "Password must be at least 8 characters";
+            }
+        }
+
+        // Confirm Password validation
+        if (empty($_POST['confirm_password'])) {
+            $confirmPassErr = "This field cannot be empty";
+        } else {
+            $confirmPass = $_POST['confirm_password'];
+            if ($password !== $confirmPass) {
+                $confirmPassErr = "Passwords do not match";
+            }
+        }
+
+
+        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $username, $email, $password);
+
+        if ($stmt->execute()) {
+            header("Location: index.php");
+                exit();
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 
@@ -84,20 +148,20 @@
             <div class="hidden md:block">
                 <img src="images/signUp.png" alt="" class="">
             </div>
-            <div class="bg-white md:p-12">
+            <form action="signUp.php" method="post" class="bg-white md:p-12">
                 <h1 class="font-normal text-4xl mb-3">Register</h1>
                 <h3 class="font-normal text-xl text-[#838383] mb-10">Register and help us help you</h3>
-                <input type="text" placeholder="Username" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]">
+                <input name="username" type="text" placeholder="Username" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"> <span class="pl-4 text-red-500"><?php echo $usernameErr; ?></span>
                 <br>
-                <input type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]">
+                <input name="email" type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $emailErr; ?></span>
                 <br>
-                <input type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]">
+                <input name="password" type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $passwordErr; ?></span>
                 <br>
-                <input type="password" placeholder="Confirm Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[26px] focus:outline-[#FF8F52]">
+                <input name="confirm_password" type="password" placeholder="Confirm Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[26px] focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $confirmPassErr; ?></span>
                 <br>
-                <input type="submit" value="Register" class="mb-10 w-[390px] h-[63px] bg-[#FF8F52] rounded-lg font-normal text-xl text-white cursor-pointer">
-                <p class="font-normal text-xl text-[#838383] text-center">Already have an account? <span class="text-[#FF8F52]"><a href="login.html" class="cursor-pointer">Login</a></span></p>
-            </div>
+                <input name="submit" type="submit" value="Register" class="mb-10 w-[390px] h-[63px] bg-[#FF8F52] rounded-lg font-normal text-xl text-white cursor-pointer">
+                <p class="font-normal text-xl text-[#838383] text-center">Already have an account? <span class="text-[#FF8F52]"><a href="login.php" class="cursor-pointer">Login</a></span></p>
+            </form>
         </div>
     </main>
 
