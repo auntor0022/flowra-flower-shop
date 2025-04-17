@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <li><a>Contact</a></li>
                         </ul>
                     </div>
-                    <a href="index.html" class="font-medium text-3xl md:text-4xl">FLOW<span class="text-[#FF8F52]">RA</span></a>
+                    <a href="index.php" class="font-medium text-3xl md:text-4xl">FLOW<span class="text-[#FF8F52]">RA</span></a>
                 </div>
                 <div class="navbar-center hidden lg:flex">
                     <ul class="menu menu-horizontal px-1">
@@ -151,13 +151,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form action="signUp.php" method="post" class="bg-white md:p-12">
                 <h1 class="font-normal text-4xl mb-3">Register</h1>
                 <h3 class="font-normal text-xl text-[#838383] mb-10">Register and help us help you</h3>
-                <input name="username" type="text" placeholder="Username" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"> <span class="pl-4 text-red-500"><?php echo $usernameErr; ?></span>
+                <input required name="username" type="text" placeholder="Username" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"> <span class="pl-4 text-red-500"><?php echo $usernameErr; ?></span>
                 <br>
-                <input name="email" type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $emailErr; ?></span>
+                <input required name="email" type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $emailErr; ?></span>
                 <br>
-                <input name="password" type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $passwordErr; ?></span>
+                <input required name="password" type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $passwordErr; ?></span>
                 <br>
-                <input name="confirm_password" type="password" placeholder="Confirm Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[26px] focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $confirmPassErr; ?></span>
+                <input required name="confirm_password" type="password" placeholder="Confirm Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[26px] focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $confirmPassErr; ?></span>
                 <br>
                 <input name="submit" type="submit" value="Register" class="mb-10 w-[390px] h-[63px] bg-[#FF8F52] rounded-lg font-normal text-xl text-white cursor-pointer">
                 <p class="font-normal text-xl text-[#838383] text-center">Already have an account? <span class="text-[#FF8F52]"><a href="login.php" class="cursor-pointer">Login</a></span></p>

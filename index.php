@@ -102,7 +102,7 @@
                             <li><a>Contact</a></li>
                         </ul>
                     </div>
-                    <a href="index.html" class="font-medium text-3xl md:text-4xl">FLOW<span
+                    <a href="index.php" class="font-medium text-3xl md:text-4xl">FLOW<span
                             class="text-[#FF8F52]">RA</span></a>
                 </div>
                 <div class="navbar-center hidden lg:flex">
