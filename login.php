@@ -1,9 +1,65 @@
-
 <?php
 @include 'config.php';
 
 $email = $password = "";
 $emailErr = $passwordErr = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['submit'])) {
+        $valid = true;
+
+        // Email validation
+        if (empty($_POST['email'])) {
+            $emailErr = "You must provide your email";
+            $valid = false;
+        } else {
+            $email = trim($_POST['email']);
+            // Optional: validate email format
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailErr = "Invalid email format";
+                $valid = false;
+            }
+        }
+
+        // Password validation
+        if (empty($_POST['password'])) {
+            $passwordErr = "Password cannot be empty";
+            $valid = false;
+        } else {
+            $password = $_POST['password'];
+            if (strlen($password) < 8) {
+                $passwordErr = "Password must be at least 8 characters";
+                $valid = false;
+            }
+        }
+
+        if ($valid) {
+            $sql = "SELECT id, email, password FROM users WHERE email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($user_id, $db_email, $db_password);
+                $stmt->fetch();
+
+                if (password_verify($password, $db_password)) {
+                    // echo "<script>alert('Login sucessfull');</script>";
+                    header("Location: index.php");
+                    exit();
+
+                } else {
+                    $passwordErr = "Invalid Password!";
+                }
+            } else {
+                $emailErr = "User not found!";
+            }
+            $stmt->close();
+        }
+    }
+}
+
 
 ?>
 
@@ -40,7 +96,7 @@ $emailErr = $passwordErr = "";
 
     <!-- CSS -->
     <style>
-        .roboto-font{
+        .roboto-font {
             font-family: "Roboto", serif;
         }
     </style>
@@ -94,13 +150,13 @@ $emailErr = $passwordErr = "";
             <form method="post" class="bg-white md:p-12">
                 <h1 class="font-normal text-4xl mb-3">Login</h1>
                 <h3 class="font-normal text-xl text-[#838383] mb-16">Login and have more fun</h3>
-                <input name="email" type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]">
+                <input name="email" type="email" placeholder="Email" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-4 focus:outline-[#FF8F52]"> <span class="pl-4 text-red-500"><?php echo $emailErr; ?></span>
                 <br>
-                <input name="password" type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[95px] focus:outline-[#FF8F52]">
+                <input name="password" type="password" placeholder="Password" class="w-[390px] h-[63px] border border-border-color rounded-lg pl-8 font-normal text-lg mb-[95px] focus:outline-[#FF8F52]"><span class="pl-4 text-red-500"><?php echo $passwordErr; ?></span>
                 <br>
                 <input name="submit" type="submit" value="Login" class="mb-16 w-[390px] h-[63px] bg-[#FF8F52] rounded-lg font-normal text-xl text-white cursor-pointer">
                 <p class="font-normal text-xl text-[#838383] text-center">dont have an account? <span class="text-[#FF8F52]"><a href="signUp.php" class="cursor-pointer">Register</a></span></p>
-    </form>
+            </form>
             <div class="hidden md:block">
                 <img src="images/logIn.png" alt="" class="">
             </div>
