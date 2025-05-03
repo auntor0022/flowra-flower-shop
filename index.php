@@ -1,3 +1,9 @@
+<?php
+
+@include 'config.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 
@@ -144,55 +150,43 @@
     <main>
         <!-- best selers section -->
         <section class="max-w-[1220px] mx-auto mt-[116px] p-3">
+
             <div class="flex justify-center items-center gap-5 mb-14">
                 <hr class="w-[80px] md:w-[165px] bg-[#D9D9D9] h-1">
                 <h1 class="font-normal text-3xl md:text-4xl">Best Selers</h1>
                 <hr class="w-[80px] md:w-[165px] bg-[#D9D9D9] h-1">
             </div>
 
-            <!-- cards -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
-                <!-- card 1 -->
-                <div class="bg-white rounded-lg p-3 md:p-4 shadow-lg">
-                    <img src="images/daisy.png" alt="">
-                    <h3 class="mt-3 font-normal text-lg md:text-xl mb-9">Daisy</h3>
-                    <div class="flex justify-between">
-                        <p class="font-normal md:text-lg text-[#838383]">5$</p>
-                        <p class="font-normal md:text-lg text-[#FF8F52]"><i class="fa-solid fa-cart-shopping"></i> Add
-                            to cart</p>
-                    </div>
+
+            <?php
+            $select_products = mysqli_query($conn, "SELECT * FROM `products` LIMIT 6") or die('query failed');
+            if (mysqli_num_rows($select_products) > 0) {
+            ?>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    <?php
+                    while ($fetch_products = mysqli_fetch_assoc($select_products)) {
+                    ?>
+                        <!-- single product card -->
+                        <div class="bg-white rounded-lg p-3 md:p-4 shadow-lg">
+                            <img class="mx-auto w-full object-cover rounded" src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
+                            <h3 class="mt-3 font-semibold text-lg md:text-xl mb-3"><?php echo $fetch_products['name']; ?></h3>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium text-sm md:text-base text-gray-600"><?php echo $fetch_products['price']; ?> Taka</p>
+                                <p class="font-medium text-sm md:text-base text-orange-500 cursor-pointer hover:underline">
+                                    <i class="fa-solid fa-cart-shopping mr-1"></i>Add to cart
+                                </p>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
-                <!-- card 2 -->
-                <div class="bg-white rounded-lg p-3 md:p-4 shadow-lg">
-                    <img src="images/sun-lower.png" alt="">
-                    <h3 class="mt-3 font-normal text-lg md:text-xl mb-9">Sun Flower</h3>
-                    <div class="flex justify-between">
-                        <p class="font-normal md:text-lg text-[#838383]">5$</p>
-                        <p class="font-normal md:text-lg text-[#FF8F52]"><i class="fa-solid fa-cart-shopping"></i> Add
-                            to cart</p>
-                    </div>
-                </div>
-                <!-- card 3 -->
-                <div class="bg-white rounded-lg p-3 md:p-4 shadow-lg">
-                    <img src="images/white-rose.png" alt="">
-                    <h3 class="mt-3 font-normal text-lg md:text-xl mb-9">White Rose</h3>
-                    <div class="flex justify-between">
-                        <p class="font-normal md:text-lg text-[#838383]">5$</p>
-                        <p class="font-normal md:text-lg text-[#FF8F52]"><i class="fa-solid fa-cart-shopping"></i> Add
-                            to cart</p>
-                    </div>
-                </div>
-                <!-- card 4 -->
-                <div class="bg-white rounded-lg p-3 md:p-4 shadow-lg">
-                    <img src="images/periwinkle.png" alt="">
-                    <h3 class="mt-3 font-normal text-lg md:text-xl mb-9">Periwinkle</h3>
-                    <div class="flex justify-between">
-                        <p class="font-normal md:text-lg text-[#838383]">5$</p>
-                        <p class="font-normal md:text-lg text-[#FF8F52]"><i class="fa-solid fa-cart-shopping"></i> Add
-                            to cart</p>
-                    </div>
-                </div>
-            </div>
+            <?php
+            } else {
+                echo '<p class="text-center text-gray-500 mt-8">No products added yet!</p>';
+            }
+            ?>
+
         </section>
 
         <!-- latest post section -->
@@ -218,7 +212,7 @@
                         just get the one you love the most 😊</p>
                     <div class="flex justify-between items-center px-3 mb-4">
                         <div class="space-x-2">
-                            <i class="fa-solid fa-heart text-[#838383] text-base"></i> 15 
+                            <i class="fa-solid fa-heart text-[#838383] text-base"></i> 15
                             <i class="fa-solid fa-eye text-[#838383] text-base"></i> 2001
                         </div>
                         <h2 class="font-normal text-lg text-[#FF8F52]">Read more</h2>
@@ -237,7 +231,7 @@
                         just get the one you love the most 😊</p>
                     <div class="flex justify-between items-center px-3 mb-4">
                         <div class="space-x-2">
-                            <i class="fa-solid fa-heart text-[#838383] text-base"></i> 30 
+                            <i class="fa-solid fa-heart text-[#838383] text-base"></i> 30
                             <i class="fa-solid fa-eye text-[#838383] text-base"></i> 3333
                         </div>
                         <h2 class="font-normal text-lg text-[#FF8F52]">Read more</h2>
@@ -256,7 +250,7 @@
                         just get the one you love the most 😊</p>
                     <div class="flex justify-between items-center px-3 mb-4">
                         <div class="space-x-2">
-                            <i class="fa-solid fa-heart text-[#838383] text-base"></i> 60 
+                            <i class="fa-solid fa-heart text-[#838383] text-base"></i> 60
                             <i class="fa-solid fa-eye text-[#838383] text-base"></i> 2222
                         </div>
                         <h2 class="font-normal text-lg text-[#FF8F52]">Read more</h2>
@@ -274,9 +268,9 @@
             </div>
 
             <!-- cards -->
-             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- card 1 -->
-                 <div class="flex gap-4 bg-white py-3 px-7">
+                <div class="flex gap-4 bg-white py-3 px-7">
                     <div class="w-[230px]">
                         <img src="images/comments-dp-1.png" alt="" class="">
                     </div>
@@ -289,11 +283,11 @@
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-100" />
-                          </div>
+                        </div>
                     </div>
-                 </div>
+                </div>
                 <!-- card 2 -->
-                 <div class="flex gap-4 bg-white py-3 px-7">
+                <div class="flex gap-4 bg-white py-3 px-7">
                     <div class="w-[170px]">
                         <img src="images/comments-dp-2.png" alt="" class="">
                     </div>
@@ -306,11 +300,11 @@
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                          </div>
+                        </div>
                     </div>
-                 </div>
+                </div>
                 <!-- card 3 -->
-                 <div class="flex gap-4 bg-white py-3 px-7">
+                <div class="flex gap-4 bg-white py-3 px-7">
                     <div class="w-[170px]">
                         <img src="images/comments-dp-3.png" alt="" class="">
                     </div>
@@ -318,17 +312,17 @@
                         <h3 class="font-medium text-2xl mt-4 mb-3">Atena</h3>
                         <p class="font-normal text-xl text-[#838383] mb-4">Drip too hard, don't stand too close
                             You gon' fuck around and drown off this wave.
-                            </p>
+                        </p>
                         <div class="rating mb-7">
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-100" />
                             <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-100" />
-                          </div>
+                        </div>
                     </div>
-                 </div>
-             </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -337,7 +331,7 @@
         <div class="max-w-[1220px] mx-auto flex flex-col md:flex-row md:justify-between md:items-center gap-8 md:gap-0 py-14">
             <div>
                 <a href="index.html" class="font-medium text-3xl md:text-4xl text-white">FLOW<span
-                    class="text-[#FF8F52]">RA</span></a>
+                        class="text-[#FF8F52]">RA</span></a>
                 <p class="font-normal text-base text-[#D9D9D9] mt-3">Some random stuff about flower shop and <br> some more info cuz this box had to get fill <br>
                     Some random stuff about flower shop and <br> some more info cuz this box had to get fill <br>
                     Some random stuff about flower shop and <br> some more info cuz this box had to get fill</p>
